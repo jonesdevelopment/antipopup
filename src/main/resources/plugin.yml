@@ -1,0 +1,7 @@
+name: AntiPopUp
+author: 'jonesdev.xyz'
+main: jones.antipopup.AntiPopUpPlugin
+version: 0.0.1-dev
+description: 'Removed the chat messages cannot be verified pop up on 1.19.1 or higher'
+api-version: 1.13
+load: POSTWORLD

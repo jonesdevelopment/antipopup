@@ -1,0 +1,55 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+    mavenCentral() // Lombok
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    } // Spigot
+    maven {
+        name = 'codemc-snapshots'
+        url = 'https://repo.codemc.io/repository/maven-snapshots/'
+    } // PacketEvents
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT'
+
+    compileOnly files('../tags/build/libs/TagsAPI.jar')
+
+    implementation 'com.github.retrooper.packetevents:spigot:2.0.0-SNAPSHOT'
+}
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.targetCompatibility = JavaVersion.VERSION_1_8
+
+shadowJar {
+    minimize()
+    archiveFileName = "${project.name}.jar"
+    relocate 'io.github.retrooper.packetevents', 'jones.antipopup.shaded.io.github.retrooper.packetevents'
+    relocate 'com.github.retrooper.packetevents', 'jones.antipopup.shaded.com.github.retrooper.packetevents'
+    relocate 'com.google.gson', 'jones.antipopup.shaded.com.google.gson'
+    relocate 'net.kyori', 'jones.antipopup.shaded.net.kyori'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
