@@ -77,4 +77,13 @@ public final class AntiPopUpPlugin extends JavaPlugin {
             }
         });
     }
+
+    @Override
+    public void onDisable() {
+
+        // terminate packet events
+        if (PacketEvents.getAPI().isInitialized()) {
+            PacketEvents.getAPI().terminate();
+        }
+    }
 }
