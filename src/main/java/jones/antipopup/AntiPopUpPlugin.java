@@ -19,9 +19,11 @@ package jones.antipopup;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerAbstract;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerServerData;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AntiPopUpPlugin extends JavaPlugin {
@@ -54,6 +56,13 @@ public final class AntiPopUpPlugin extends JavaPlugin {
 
         // initialize packet events
         PacketEvents.getAPI().init();
+
+        // check server version to avoid issues
+        if (PacketEvents.getAPI().getServerManager().getVersion().isOlderThan(ServerVersion.V_1_19_1)) {
+            Bukkit.getLogger().severe("This plugin can only run on 1.19.1+ servers.");
+            onDisable();
+            return;
+        }
 
         // register listener for right clicking
         PacketEvents.getAPI().getEventManager().registerListener(new PacketListenerAbstract() {
