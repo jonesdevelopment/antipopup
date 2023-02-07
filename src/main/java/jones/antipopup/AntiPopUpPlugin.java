@@ -21,6 +21,7 @@ import com.github.retrooper.packetevents.event.PacketListenerAbstract;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerServerData;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import org.bukkit.Bukkit;
@@ -69,7 +70,7 @@ public final class AntiPopUpPlugin extends JavaPlugin {
 
             @Override
             public void onPacketSend(final PacketSendEvent event) {
-                if (event.getPacketType() == PacketType.Play.Server.SERVER_DATA) {
+                if (event.getPacketType() == PacketType.Play.Server.SERVER_DATA && event.getUser().getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_19_1)) {
                     event.setCancelled(true);
 
                     final WrapperPlayServerServerData wrapper = new WrapperPlayServerServerData(event);
