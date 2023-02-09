@@ -33,8 +33,6 @@ dependencies {
 
     compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT'
 
-    compileOnly files('../tags/build/libs/TagsAPI.jar')
-
     implementation 'com.github.retrooper.packetevents:spigot:2.0.0-SNAPSHOT'
 }
 
@@ -44,10 +42,10 @@ java.targetCompatibility = JavaVersion.VERSION_1_8
 shadowJar {
     minimize()
     archiveFileName = "${project.name}.jar"
-    relocate 'io.github.retrooper.packetevents', 'jones.antipopup.shaded.io.github.retrooper.packetevents'
-    relocate 'com.github.retrooper.packetevents', 'jones.antipopup.shaded.com.github.retrooper.packetevents'
-    relocate 'com.google.gson', 'jones.antipopup.shaded.com.google.gson'
-    relocate 'net.kyori', 'jones.antipopup.shaded.net.kyori'
+    relocate 'io.github.retrooper.packetevents', 'jones.antipopup.shaded.io.packetevents'
+    relocate 'com.github.retrooper.packetevents', 'jones.antipopup.shaded.com.packetevents'
+    relocate 'com.google.gson', 'jones.antipopup.shaded.gson'
+    relocate 'net.kyori', 'jones.antipopup.shaded.adventure'
 }
 
 tasks.withType(JavaCompile) {

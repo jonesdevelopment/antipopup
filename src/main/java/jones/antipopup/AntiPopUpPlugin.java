@@ -81,7 +81,7 @@ public final class AntiPopUpPlugin extends JavaPlugin {
                             wrapper.isEnforceSecureChat()
                     );
 
-                    // yes, it actually is that simple
+                    // yes, it really is that simple
                     event.getUser().sendPacket(rewritten);
                 }
             }
